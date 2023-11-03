@@ -16,11 +16,17 @@ const Nav = () => {
   const navItems = (
     <>
       <Link to={"/"}>Home</Link>
+      <Link to={"/blog"}>Blog</Link>
 
       {!user ? <Link to={"/signup"}>Signup</Link> : ""}
 
       {user ? (
-        <button onClick={handleSignOut}>Signout</button>
+        <div>
+          <Link className="mr-7" to={"/dashboard"}>
+            Dashboard
+          </Link>
+          <button onClick={handleSignOut}>Signout</button>
+        </div>
       ) : (
         <Link to={"/login"}>Login</Link>
       )}

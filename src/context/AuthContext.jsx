@@ -38,6 +38,7 @@ const AuthContextProvider = ({ children }) => {
         // User is signed out
         // ...
         setUser(null);
+        setLoading(false);
       }
     });
   }, []);

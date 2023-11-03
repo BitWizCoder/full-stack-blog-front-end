@@ -3,6 +3,7 @@ import Nav from "../component/Nav";
 import Footer from "../component/Footer";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
+import Loading from "../component/Loading";
 
 const MainLayout = () => {
   const { loading } = useContext(AuthContext);
@@ -10,7 +11,7 @@ const MainLayout = () => {
   return (
     <div>
       {loading ? (
-        <p>site is loading...</p>
+        <Loading />
       ) : (
         <div className="container mx-auto">
           <Nav />
