@@ -17,7 +17,7 @@ const Nav = () => {
     <>
       <Link to={"/"}>Home</Link>
 
-      <Link to={"/signup"}>Signup</Link>
+      {!user ? <Link to={"/signup"}>Signup</Link> : ""}
 
       {user ? (
         <button onClick={handleSignOut}>Signout</button>

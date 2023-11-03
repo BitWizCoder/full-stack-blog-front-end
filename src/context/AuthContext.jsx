@@ -13,12 +13,15 @@ const AuthContext = createContext();
 
 const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const signUpwithEmail = (email, password) => {
+    setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
   const signInWithEmail = (email, password) => {
+    setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
 
@@ -30,6 +33,7 @@ const AuthContextProvider = ({ children }) => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
+        setLoading(false);
       } else {
         // User is signed out
         // ...
@@ -42,6 +46,7 @@ const AuthContextProvider = ({ children }) => {
     signUpwithEmail,
     signInWithEmail,
     logOutUser,
+    loading,
     user,
   };
 
