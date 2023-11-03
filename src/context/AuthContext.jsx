@@ -1,27 +1,48 @@
-import { createContext } from "react";
+import { createContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signOut,
+} from "firebase/auth";
 import { auth } from "../config/firebase.config";
 
 // Create the context outside the component
 const AuthContext = createContext();
 
 const AuthContextProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
+
   const signUpwithEmail = (email, password) => {
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((res) => {
-        console.log(res.user);
-      })
-      .catch((err) => {
-        const errorCode = err.code;
-        const errorMessage = err.message;
-        console.log(errorCode, errorMessage);
-      });
+    return createUserWithEmailAndPassword(auth, email, password);
   };
 
+  const signInWithEmail = (email, password) => {
+    return signInWithEmailAndPassword(auth, email, password);
+  };
+
+  const logOutUser = () => {
+    return signOut(auth);
+  };
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user);
+      } else {
+        // User is signed out
+        // ...
+        setUser(null);
+      }
+    });
+  }, []);
+
   const data = {
-    name: "Noman",
     signUpwithEmail,
+    signInWithEmail,
+    logOutUser,
+    user,
   };
 
   return <AuthContext.Provider value={data}>{children}</AuthContext.Provider>;

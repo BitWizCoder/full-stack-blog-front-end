@@ -1,4 +1,34 @@
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
+
 const SignUp = () => {
+  const { signUpwithEmail, user } = useContext(AuthContext);
+
+
+  const handleSignUp = (e) => {
+    e.preventDefault();
+
+    const form = e.target;
+
+    // const name = form.name.value;
+    const email = form.email.value;
+    const password = form.password.value;
+
+
+
+    signUpwithEmail(email, password)
+      .then((res) => {
+        console.log(res.user);
+      })
+      .catch((err) => {
+        const errorCode = err.code;
+        const errorMessage = err.message;
+        console.log(errorCode, errorMessage);
+      });
+  };
+
+  console.log(user);
+
   return (
     <section className="bg-white">
       <div className="grid grid-cols-1 lg:grid-cols-2">
@@ -120,7 +150,7 @@ const SignUp = () => {
               </a>
             </p>
 
-            <form action="#" method="POST" className="mt-8">
+            <form onSubmit={handleSignUp} className="mt-8">
               <div className="space-y-5">
                 <div>
                   <label className="text-base font-medium text-gray-900">
@@ -147,8 +177,7 @@ const SignUp = () => {
 
                     <input
                       type="text"
-                      name=""
-                      id=""
+                      name="name"
                       placeholder="Enter your full name"
                       className="block w-full py-4 pl-10 pr-4 text-black placeholder-gray-500 transition-all duration-200 border border-gray-200 rounded-md bg-gray-50 focus:outline-none focus:border-blue-600 focus:bg-white caret-blue-600"
                     />
@@ -180,8 +209,7 @@ const SignUp = () => {
 
                     <input
                       type="email"
-                      name=""
-                      id=""
+                      name="email"
                       placeholder="Enter email to get started"
                       className="block w-full py-4 pl-10 pr-4 text-black placeholder-gray-500 transition-all duration-200 border border-gray-200 rounded-md bg-gray-50 focus:outline-none focus:border-blue-600 focus:bg-white caret-blue-600"
                     />
@@ -213,8 +241,7 @@ const SignUp = () => {
 
                     <input
                       type="password"
-                      name=""
-                      id=""
+                      name="password"
                       placeholder="Enter your password"
                       className="block w-full py-4 pl-10 pr-4 text-black placeholder-gray-500 transition-all duration-200 border border-gray-200 rounded-md bg-gray-50 focus:outline-none focus:border-blue-600 focus:bg-white caret-blue-600"
                     />

@@ -1,4 +1,31 @@
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
+
 const Login = () => {
+  const { signInWithEmail } = useContext(AuthContext);
+
+  const hanldeLogin = (e) => {
+    e.preventDefault();
+
+    const form = e.target;
+
+    const email = form.email.value;
+    const password = form.password.value;
+
+    signInWithEmail(email, password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        console.log(user);
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+      });
+  };
+
   return (
     <section className="bg-white">
       <div className="grid grid-cols-1 lg:grid-cols-2">
@@ -120,7 +147,7 @@ const Login = () => {
               </a>
             </p>
 
-            <form className="mt-8">
+            <form className="mt-8" onSubmit={hanldeLogin}>
               <div className="space-y-5">
                 <div>
                   <label className="text-base font-medium text-gray-900">
@@ -147,8 +174,7 @@ const Login = () => {
 
                     <input
                       type="email"
-                      name=""
-                      id=""
+                      name="email"
                       placeholder="Enter email to get started"
                       className="block w-full py-4 pl-10 pr-4 text-black placeholder-gray-500 transition-all duration-200 border border-gray-200 rounded-md bg-gray-50 focus:outline-none focus:border-blue-600 focus:bg-white caret-blue-600"
                     />
@@ -191,8 +217,7 @@ const Login = () => {
 
                     <input
                       type="password"
-                      name=""
-                      id=""
+                      name="password"
                       placeholder="Enter your password"
                       className="block w-full py-4 pl-10 pr-4 text-black placeholder-gray-500 transition-all duration-200 border border-gray-200 rounded-md bg-gray-50 focus:outline-none focus:border-blue-600 focus:bg-white caret-blue-600"
                     />
