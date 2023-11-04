@@ -4,7 +4,9 @@ import Home from "../pages/Home";
 import Login from "../pages/Login";
 import SignUp from "../pages/SignUp";
 import Blog from "../pages/Blog";
-import Dashboard from "../pages/Dashboard";
+import DashBoardHome from "../pages/dashboard/Home";
+import NewArticle from "../pages/dashboard/NewArticle";
+import DashboardLayout from "../pages/dashboard/DashboardLayout";
 
 const AppRoutes = () => {
   return (
@@ -14,9 +16,11 @@ const AppRoutes = () => {
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<SignUp />} />
         <Route path="blog" element={<Blog />} />
-        <Route path="dashboard" element={<Dashboard />} />
       </Route>
-      <Route path="/dash" element={<Dashboard/>}></Route>
+      <Route path="/dashboard" element={<DashboardLayout />}>
+        <Route index element={<DashBoardHome />} />
+        <Route path="new-article" element={<NewArticle />} />
+      </Route>
     </Routes>
   );
 };
