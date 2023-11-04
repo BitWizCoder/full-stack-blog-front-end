@@ -16,6 +16,7 @@ const AppRoutes = () => {
         <Route path="blog" element={<Blog />} />
         <Route path="dashboard" element={<Dashboard />} />
       </Route>
+      <Route path="/dash" element={<Dashboard/>}></Route>
     </Routes>
   );
 };
